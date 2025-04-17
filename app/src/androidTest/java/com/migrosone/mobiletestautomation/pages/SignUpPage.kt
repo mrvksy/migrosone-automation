@@ -70,6 +70,14 @@ class SignUpPage(private val rule: ComposeTestRule) {
             .performTextInput(SignUpConstants.VALID_NAME)
     }
 
+    fun fillSignUpForm(email: String, password: String, name: String) {
+        val fields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
+        fields[0].performClick().performTextInput(email)
+        fields[1].performClick().performTextInput(password)
+        fields[2].performClick().performTextInput(name)
+    }
+
+    /*
     fun fillFormSignUpPage() {
         // Email
         setEmailAddressToForm()
@@ -80,7 +88,7 @@ class SignUpPage(private val rule: ComposeTestRule) {
         // Name
         setValidNameToForm()
     }
-
+*/
     fun clickOnSignUpButtonAllNodesWithText() {
         rule
             .onAllNodesWithText(SignUpConstants.SIGN_UP_TEXT, useUnmergedTree = true)[1]

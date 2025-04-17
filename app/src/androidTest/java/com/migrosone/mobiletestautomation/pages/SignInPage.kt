@@ -33,6 +33,12 @@ class SignInPage(private val rule: ComposeTestRule) {
             .assertIsDisplayed()
     }
 
+    fun fillCredentials(email: String, password: String) {
+        val fields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
+        fields[0].performClick().performTextInput(email)
+        fields[1].performClick().performTextInput(password)
+    }
+
     fun setEmailAddressToForm() {
         // Email
         rule

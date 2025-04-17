@@ -4,6 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.migrosone.mobiletestautomation.MainActivity
+import com.migrosone.mobiletestautomation.constants.SignUpConstants
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,7 +31,12 @@ class SignUpScreenTest {
         signUpPage.assertSignUpFieldsDisplayed()
 
         // 5. Formu doldur
-        signUpPage.fillFormSignUpPage()
+        //signUpPage.fillFormSignUpPage()
+        signUpPage.fillSignUpForm(
+            SignUpConstants.VALID_EMAIL,
+            SignUpConstants.VALID_PASSWORD,
+            SignUpConstants.VALID_NAME
+        )
 
         // 6. Sign Up butonuna tıklanır
         signUpPage.clickOnSignUpButtonAllNodesWithText()
@@ -84,7 +90,8 @@ class SignUpScreenTest {
         signUpPage.assertSignUpFieldsDisplayed()
 
         // 5. Sadece Name girilir
-        signUpPage.setValidName()
+        //signUpPage.setValidName()
+        signUpPage.fillSignUpForm("", "", SignUpConstants.VALID_NAME)
 
         // 5. Sign Up butonuna tıklanır
         signUpPage.clickOnSignUpButtonAllNodesWithText()
@@ -110,7 +117,8 @@ class SignUpScreenTest {
         signUpPage.assertSignUpFieldsDisplayed()
 
         // 5. Sadece Password girilir
-        signUpPage.setValidPassword()
+        //signUpPage.setValidPassword()
+        signUpPage.fillSignUpForm("", SignUpConstants.VALID_PASSWORD, "")
 
         // 5. Sign Up butonuna tıklanır
         signUpPage.clickOnSignUpButtonAllNodesWithText()
@@ -136,7 +144,8 @@ class SignUpScreenTest {
         signUpPage.assertSignUpFieldsDisplayed()
 
         // 5. Sadece Email girilir
-        signUpPage.setValidEmail()
+        //signUpPage.setValidEmail()
+        signUpPage.fillSignUpForm(SignUpConstants.VALID_EMAIL, "", "")
 
         // 6. Sign Up butonuna tıklanır
         signUpPage.clickOnSignUpButtonAllNodesWithText()
@@ -162,11 +171,17 @@ class SignUpScreenTest {
 
         // 5. Formu doldur
         // Invalid Email
-        signUpPage.setInvalidEmail()
+        //signUpPage.setInvalidEmail()
         // Password
-        signUpPage.setValidPassword()
+        //signUpPage.setValidPassword()
         // Name
-        signUpPage.setValidName()
+        //signUpPage.setValidName()
+
+        signUpPage.fillSignUpForm(
+            SignUpConstants.INVALID_EMAIL,
+            SignUpConstants.VALID_PASSWORD,
+            SignUpConstants.VALID_NAME
+        )
 
         // 6. Sign Up butonuna tıklanır
         signUpPage.clickOnSignUpButtonAllNodesWithText()

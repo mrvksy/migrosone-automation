@@ -72,11 +72,16 @@ class SingInScreenTest {
         composeTestRule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
             .printToLog("TEXTFIELDS")
 
+        /*
         //12. Sign Up olan Kullanıcının Email girilir
         signInPage.setEmailAddressToForm()
 
         //13. Sign Up olan Kullanıcının Password girilir
         signInPage.setValidPasswordToTextField()
+        */
+
+        //12-13 Sing Up olan Kullanıcı Email ve Password girişi yapar
+        signInPage.fillCredentials(SignInConstants.VALID_EMAIL,SignInConstants.VALID_PASSWORD)
 
         composeTestRule
             .onAllNodesWithText(SignUpConstants.SIGN_IN_TEXT, useUnmergedTree = true)
@@ -142,12 +147,15 @@ class SingInScreenTest {
 
         composeTestRule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
             .printToLog("TEXTFIELDS")
-
+/*
         //10. Kayıtlı olmayan Kullanıcının Email girilir
         signInPage.setIncorretCreadentialsEmailAddressToForm()
 
         //11. Kayıtlı Olmayan olan Kullanıcının Password girilir
         signInPage.setIncorrectCredentialsPasswordToTextField()
+*/
+        //10-11 Kullanıcı Kayıtlı olmayan email ve şifresini girer
+        signInPage.fillCredentials(SignInConstants.INCORRECT_CREDENTIALS_EMAIL,SignInConstants.VALID_PASSWORD)
 
         //Close Keyboard
         composeTestRule.onNodeWithText(SignInConstants.PASSWORD_LABEL, useUnmergedTree = true)
