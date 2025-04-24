@@ -9,46 +9,48 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performImeAction
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
 import com.migrosone.mobiletestautomation.constants.SignUpConstants
-import com.migrosone.mobiletestautomation.constants.SignInConstants
+import com.migrosone.mobiletestautomation.constants.SignInScreenConstants
 
 
-class SignInPage(private val rule: ComposeTestRule) {
+class SignInScreenPage(private val rule: ComposeTestRule) {
     fun checkEmailFieldDisplayed() {
-        rule.onNodeWithText(SignInConstants.EMAIL_LABEL, useUnmergedTree = true)
+        rule.onNodeWithText(SignInScreenConstants.EMAIL_LABEL, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
     fun checkPasswordFieldDisplayed() {
-        rule.onNodeWithText(SignInConstants.PASSWORD_LABEL, useUnmergedTree = true)
+        rule.onNodeWithText(SignInScreenConstants.PASSWORD_LABEL, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
     fun assertSignInScreenOpen() {
         rule
-            .onAllNodesWithText(SignInConstants.SIGN_IN_TEXT, useUnmergedTree = true)[0]
+            .onAllNodesWithText(SignInScreenConstants.SIGN_IN_TEXT, useUnmergedTree = true)[0]
             .assertIsDisplayed()
     }
 
     fun fillCredentials(email: String, password: String) {
-        val fields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
-        fields[0].performClick().performTextInput(email)
-        fields[1].performClick().performTextInput(password)
+        rule.onNodeWithText(SignInScreenConstants.EMAIL_LABEL, useUnmergedTree = false)
+            .performClick()
+            .performTextInput(email)
+
+        rule.onNodeWithText(SignInScreenConstants.PASSWORD_LABEL, useUnmergedTree = false)
+            .performClick()
+            .performTextInput(password)
     }
 
     fun setEmailAddressToForm() {
-        // Email
         rule
             .onAllNodes(hasSetTextAction(), useUnmergedTree = true)[0]
-            .performTextInput(SignInConstants.VALID_EMAIL)
+            .performTextInput(SignInScreenConstants.VALID_EMAIL)
     }
 
     fun setValidPasswordToTextField() {
         val textFields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
-        textFields[1].performClick().performTextInput(SignInConstants.VALID_PASSWORD)
+        textFields[1].performClick().performTextInput(SignInScreenConstants.VALID_PASSWORD)
     }
 
     fun clickOnSignInButton() {
@@ -60,32 +62,14 @@ class SignInPage(private val rule: ComposeTestRule) {
                 nodes[1].performTouchInput { click() }
             }
         }
-        /*
-         try {
-             rule.onAllNodesWithText(SignUpConstants.SIGN_IN_TEXT, useUnmergedTree = true) [1]
-                 .performClick()
-         } catch (e: AssertionError) {
-             rule
-                 .onAllNodesWithText(SignInConstants.SIGN_IN_TEXT, useUnmergedTree = true)[1]
-                 .performTouchInput { click() }
-         }
-         rule.onAllNodesWithText(SignUpConstants.SIGN_IN_TEXT, useUnmergedTree = true) [1]
-             .performClick()
-        */
 
-        /*
-        rule
-            .onAllNodesWithText(SignInConstants.SIGN_IN_TEXT, useUnmergedTree = true)[1]
-            .performTouchInput { click() }
-
-         */
     }
 
     fun waitProfileImage() {
         rule.waitUntil(timeoutMillis = 10000) {
             rule
                 .onAllNodesWithContentDescription(
-                    SignInConstants.PROFILE_PICTURE_DESC,
+                    SignInScreenConstants.PROFILE_PICTURE_DESC,
                     useUnmergedTree = true
                 )
                 .fetchSemanticsNodes()
@@ -96,7 +80,7 @@ class SignInPage(private val rule: ComposeTestRule) {
     fun assertProfileImageDisplayed() {
         rule
             .onNodeWithContentDescription(
-                SignInConstants.PROFILE_PICTURE_DESC,
+                SignInScreenConstants.PROFILE_PICTURE_DESC,
                 useUnmergedTree = true
             )
             .assertIsDisplayed()
@@ -104,7 +88,7 @@ class SignInPage(private val rule: ComposeTestRule) {
 
     fun assertWelcomeUserTitleDisplayed() {
         rule.onNodeWithText(
-            SignInConstants.WELCOME_TEXT + SignInConstants.VALID_NAME,
+            SignInScreenConstants.WELCOME_TEXT + SignInScreenConstants.VALID_NAME,
             useUnmergedTree = true
         )
             .assertIsDisplayed()
@@ -112,54 +96,60 @@ class SignInPage(private val rule: ComposeTestRule) {
 
     fun assertEmailAddressFromWelcomePageDisplayed() {
         rule.onNodeWithText(
-            SignInConstants.EMAIL_DISPLAY + SignInConstants.VALID_EMAIL, useUnmergedTree = true
+            SignInScreenConstants.EMAIL_DISPLAY + SignInScreenConstants.VALID_EMAIL, useUnmergedTree = true
         )
             .assertIsDisplayed()
     }
 
     fun assertAdditionalInfoTextDisplayed() {
-        rule.onNodeWithText(SignInConstants.ADDITIONAL_INFO, useUnmergedTree = true)
+        rule.onNodeWithText(SignInScreenConstants.ADDITIONAL_INFO, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
     fun assertSignOutButtonDisplayed() {
-        rule.onNodeWithText(SignInConstants.SIGN_OUT_TEXT, useUnmergedTree = true)
+        rule.onNodeWithText(SignInScreenConstants.SIGN_OUT_TEXT, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
 
     fun clickOnSignOutButton() {
         rule
-            .onAllNodesWithText(SignInConstants.SIGN_OUT_TEXT, useUnmergedTree = true)[1]
+            .onAllNodesWithText(SignInScreenConstants.SIGN_OUT_TEXT, useUnmergedTree = true)[1]
             .performTouchInput { click() }
     }
 
-    fun setIncorretCreadentialsEmailAddressToForm() {
+    fun setIncorrectCredentialsEmailAddressToForm() {
         // Email
         rule
             .onAllNodes(hasSetTextAction(), useUnmergedTree = true)[0]
-            .performTextInput(SignInConstants.INCORRECT_CREDENTIALS_EMAIL)
+            .performTextInput(SignInScreenConstants.INCORRECT_CREDENTIALS_EMAIL)
     }
 
     fun setIncorrectCredentialsPasswordToTextField() {
         val textFields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
         textFields[1].performClick()
-            .performTextInput(SignInConstants.INCORRECT_CREDENTIALS_PASSWORD)
+            .performTextInput(SignInScreenConstants.INCORRECT_CREDENTIALS_PASSWORD)
     }
 
     fun checkIncorrectUserCredentialsMessage() {
         rule.waitUntil(timeoutMillis = 20000) {
             rule
                 .onAllNodesWithContentDescription(
-                    SignInConstants.INCORRECT_CREDENTIALS_MESSAGE,
+                    SignInScreenConstants.INCORRECT_CREDENTIALS_MESSAGE,
                     useUnmergedTree = true
                 )
                 .fetchSemanticsNodes()
                 .isNotEmpty()
         }
-        rule.onNodeWithText(SignInConstants.INCORRECT_CREDENTIALS_MESSAGE, useUnmergedTree = true)
+        rule.onNodeWithText(SignInScreenConstants.INCORRECT_CREDENTIALS_MESSAGE, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
+    fun waitForInputFields() {
+        rule.waitUntil(timeoutMillis = 5000) {
+            rule.onAllNodes(hasSetTextAction(), useUnmergedTree = false)
+                .fetchSemanticsNodes().size >= 2
+        }
+    }
 
 }

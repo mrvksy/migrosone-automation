@@ -4,7 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import com.migrosone.mobiletestautomation.constants.SignUpConstants
 
-class SignUpPage(private val rule: ComposeTestRule) {
+class SignUpScreenPage(private val rule: ComposeTestRule) {
 
     fun assertHomePageFieldsVisible() {
         rule
@@ -15,7 +15,6 @@ class SignUpPage(private val rule: ComposeTestRule) {
         rule.onNodeWithText(SignUpConstants.SIGN_UP_TEXT, useUnmergedTree = true)
             .assertIsDisplayed()
     }
-
 
     fun clickOnSingUpButton() {
         rule.onNodeWithText(SignUpConstants.SIGN_UP_TEXT, useUnmergedTree = true)
@@ -77,18 +76,6 @@ class SignUpPage(private val rule: ComposeTestRule) {
         fields[2].performClick().performTextInput(name)
     }
 
-    /*
-    fun fillFormSignUpPage() {
-        // Email
-        setEmailAddressToForm()
-
-        // Password
-        setValidPasswordToForm()
-
-        // Name
-        setValidNameToForm()
-    }
-*/
     fun clickOnSignUpButtonAllNodesWithText() {
         rule
             .onAllNodesWithText(SignUpConstants.SIGN_UP_TEXT, useUnmergedTree = true)[1]
@@ -160,4 +147,7 @@ class SignUpPage(private val rule: ComposeTestRule) {
             .performTextInput(SignUpConstants.INVALID_EMAIL)
 
     }
+
 }
+
+

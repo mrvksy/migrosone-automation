@@ -61,4 +61,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.0.5")
+
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:rules:1.5.0") // Güncel AndroidX sürümü
+    androidTestImplementation ("androidx.test:rules:1.5.0")
+
+
+
 }

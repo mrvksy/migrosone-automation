@@ -11,8 +11,8 @@ object SignUpConstants {
     const val SIGN_IN_NOW_TEXT = "Sign In Now"
 
 
-    const val VALID_EMAIL = "test@example.com"
+    const val VALID_EMAIL = "abcd@gmail.com"
     const val VALID_PASSWORD = "123456"
-    const val VALID_NAME = "Test User"
-    const val INVALID_EMAIL = "test"
+    const val VALID_NAME = "Test Data"
+    const val INVALID_EMAIL = "deneme"
 }
