@@ -13,8 +13,8 @@ object SignInScreenConstants {
     const val SIGN_OUT_TEXT = "Sign Out"
     const val ADDITIONAL_INFO = "Additional Info"
 
-    const val VALID_EMAIL = "abcd@gmail.com"
-    const val VALID_PASSWORD = "123456"
+    const val VALID_EMAIL = "mrv"
+    const val VALID_PASSWORD = "ksy"
     const val VALID_NAME = "Test Data"
 
     const val INCORRECT_CREDENTIALS_EMAIL = "xyz@gmail.com"

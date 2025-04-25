@@ -5,44 +5,20 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="userShouldSignUp()">
+      <SelectionState runConfigName="successfulLoginThenSignOutShouldNavigateBackToInitialScreen()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="userShouldSignUpWithEmailPasswordAndNameInformation()">
+      <SelectionState runConfigName="signInWithEmptyEmailAndPassword_showsErrorMessages()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="userShouldNotSignUpWithoutRequiredField()">
+      <SelectionState runConfigName="signInshowsRequiredFieldErrorswhenEmailAndPasswordAreEmpty()">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-22T10:34:52.985456Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/Users/merveaksoy/.android/avd/Medium_Phone.avd" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Tests in 'com.migrosone.mobiletestautomation.test'">
+      <SelectionState runConfigName="signInshowsRequiredFieldErrorswhenPasswordEmpty()">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-22T10:51:24.620105Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R96T600XV7D" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="InitialScreenTest">
+      <SelectionState runConfigName="SignInScreenTest">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-22T10:52:18.048238Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R96T600XV7D" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
       </SelectionState>
     </selectionStates>
   </component>

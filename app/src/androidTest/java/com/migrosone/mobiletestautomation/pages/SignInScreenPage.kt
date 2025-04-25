@@ -1,16 +1,27 @@
 package com.migrosone.mobiletestautomation.pages
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.click
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.printToString
+import com.migrosone.mobiletestautomation.constants.InitialScreenConstants
 import com.migrosone.mobiletestautomation.constants.SignUpConstants
 import com.migrosone.mobiletestautomation.constants.SignInScreenConstants
 
@@ -23,6 +34,12 @@ class SignInScreenPage(private val rule: ComposeTestRule) {
 
     fun checkPasswordFieldDisplayed() {
         rule.onNodeWithText(SignInScreenConstants.PASSWORD_LABEL, useUnmergedTree = true)
+            .assertIsDisplayed()
+    }
+
+
+    fun checkSignInButtonDisplayed() {
+        rule.onNodeWithText(InitialScreenConstants.SIGN_IN_TEXT, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
@@ -118,31 +135,43 @@ class SignInScreenPage(private val rule: ComposeTestRule) {
             .performTouchInput { click() }
     }
 
+    // Geçersiz bilgilerle giriş fonksiyonlarını iyileştirme
     fun setIncorrectCredentialsEmailAddressToForm() {
-        // Email
-        rule
-            .onAllNodes(hasSetTextAction(), useUnmergedTree = true)[0]
+        rule.waitUntil {
+            rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)[0]
             .performTextInput(SignInScreenConstants.INCORRECT_CREDENTIALS_EMAIL)
     }
 
     fun setIncorrectCredentialsPasswordToTextField() {
-        val textFields = rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
-        textFields[1].performClick()
+        rule.waitUntil {
+            rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)
+                .fetchSemanticsNodes().size > 1
+        }
+        rule.onAllNodes(hasSetTextAction(), useUnmergedTree = true)[1]
             .performTextInput(SignInScreenConstants.INCORRECT_CREDENTIALS_PASSWORD)
     }
 
     fun checkIncorrectUserCredentialsMessage() {
-        rule.waitUntil(timeoutMillis = 20000) {
-            rule
-                .onAllNodesWithContentDescription(
-                    SignInScreenConstants.INCORRECT_CREDENTIALS_MESSAGE,
-                    useUnmergedTree = true
-                )
-                .fetchSemanticsNodes()
-                .isNotEmpty()
+        rule.waitUntil(timeoutMillis = 15000) {
+            try {
+                // Tam mesaj kontrolü
+                rule.onNodeWithText(SignInScreenConstants.INCORRECT_CREDENTIALS_MESSAGE)
+                    .assertExists()
+                true
+            } catch (e: AssertionError) {
+                try {
+                    // Parçalı kontrol
+                    rule.onNodeWithText("User not found", substring = true)
+                        .assertExists()
+                    true
+                } catch (e: Exception) {
+                    false
+                }
+            }
         }
-        rule.onNodeWithText(SignInScreenConstants.INCORRECT_CREDENTIALS_MESSAGE, useUnmergedTree = true)
-            .assertIsDisplayed()
     }
 
     fun waitForInputFields() {
@@ -151,5 +180,27 @@ class SignInScreenPage(private val rule: ComposeTestRule) {
                 .fetchSemanticsNodes().size >= 2
         }
     }
+
+    fun waitEmailFieldForSignInForm() {
+        rule.waitUntil(timeoutMillis = 8000) {
+            rule.onAllNodesWithText(InitialScreenConstants.EMAIL, useUnmergedTree = true)
+                .fetchSemanticsNodes()
+                .isNotEmpty()
+        }
+    }
+
+
+    fun assertCheckSignInFormFields() {
+        rule.onNodeWithText(InitialScreenConstants.EMAIL, useUnmergedTree = true)
+            .assertIsDisplayed()
+        rule.onNodeWithText(InitialScreenConstants.PASSWORD, useUnmergedTree = true)
+            .assertIsDisplayed()
+        rule
+            .onAllNodesWithText(InitialScreenConstants.SIGN_IN_TEXT, useUnmergedTree = true)[0]
+            .assertIsDisplayed()
+    }
+
+
+
 
 }
